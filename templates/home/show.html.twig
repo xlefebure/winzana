@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+    <div class="public-home">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h6>Mis en ligne le {{ article.createdAt | date("m/d/Y") }}</h6>
+                    <h1>{{ article.title }}</h1>
+                    <h6>par {{ article.name }}</h6>
+
+                    {{ article.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

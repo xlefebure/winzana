@@ -1,0 +1,51 @@
+{{ form_start(form) }}
+    <div class="form-row">
+        <div class="form-group col-lg-6 col-md-6 col-12">
+            {{ form_widget(form.name) }}
+            <div class="form-error">
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-12">
+            {{ form_widget(form.firstname) }}
+            <div class="form-error">
+                {{ form_errors(form.firstname) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-lg-6 col-md-6 col-12">
+            {{ form_widget(form.email) }}
+            <div class="form-error">
+                {{ form_errors(form.email) }}
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-12">
+            {{ form_widget(form.city) }}
+            <div class="form-error">
+                {{ form_errors(form.city) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-12">
+            {{ form_widget(form.title) }}
+            <div class="form-error">
+                {{ form_errors(form.title) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-12">
+            {{ form_widget(form.description) }}
+            <div class="form-error">
+                {{ form_errors(form.description) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-12">
+            <button type="submit" class="btn btn-primary mb-2 float-right">Ajouter</button>
+        </div>
+    </div>
+{{ form_end(form) }}
