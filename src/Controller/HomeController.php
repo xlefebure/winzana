@@ -18,12 +18,17 @@ class HomeController extends AbstractController
      */
     private $entityManager;
 
+    /**
+     * HomeController constructor.
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
     /**
+     * Page d'accueil
      * @Route("/", name="home.index")
      * @param Request $request
      * @param ArticleRepository $articleRepository
@@ -32,15 +37,15 @@ class HomeController extends AbstractController
     public function index(Request $request, ArticleRepository $articleRepository)
     {
         $article = new Article();
+
+        // Création du formulaire
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
+        // Si formulaire soumis & valide
         if ($form->isSubmitted() && $form->isValid())
         {
             try {
-                $article->setStatus(0);
-                $article->setCreatedAt(new \DateTime());
-                $article->setUpdatedAt(new \DateTime());
                 $this->entityManager->persist($article);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'L\'article a bien été ajouté');
@@ -58,6 +63,7 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Affiche l'article
      * @Route("show/{id}", name="home.show")
      * @param Article $article
      * @return Response

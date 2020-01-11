@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,43 +19,47 @@ class ArticleType extends AbstractType
             ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Titre',
-                    'required' => true
-                ]
+                    'placeholder' => 'Titre'
+                ],
+                'required' => true
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Description'
-                ]
+                ],
+                'required' => false
             ])
             ->add('name', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Prénom',
-                    'required' => true
-                ]
+                    'placeholder' => 'Nom'
+                ],
+                'required' => true
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Nom',
-                    'required' => true
-                ]
+                    'placeholder' => 'Prénom'
+                ],
+                'required' => true
             ])
             ->add('city', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Ville',
-                    'required' => true
-                ]
+                    'placeholder' => 'Ville'
+                ],
+                'required' => true
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Email',
-                    'required' => true
-                ]
+                    'placeholder' => 'Email'
+                ],
+                'required' => true
+            ])
+            ->add('imageFile', FileType::class, [
+                'required' => false
             ])
         ;
     }

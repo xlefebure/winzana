@@ -3,10 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @Vich\Uploadable()
  */
 class Article
 {
@@ -40,8 +44,8 @@ class Article
      * @Assert\Length(
      *     min = 2,
      *     max = 50,
-     *     minMessage = "La taille du prénom doit être comprise entre 2 et 50 caractères",
-     *     minMessage = "La taille du prénom doit être comprise entre 2 et 50 caractères"
+     *     minMessage = "La taille du nom doit être comprise entre 2 et 50 caractères",
+     *     minMessage = "La taille du nom doit être comprise entre 2 et 50 caractères"
      * )
      */
     private $name;
@@ -52,8 +56,8 @@ class Article
      * @Assert\Length(
      *     min = 2,
      *     max = 50,
-     *     minMessage = "La taille du nom doit être comprise entre 2 et 50 caractères",
-     *     minMessage = "La taille du nom doit être comprise entre 2 et 50 caractères"
+     *     minMessage = "La taille du prénom doit être comprise entre 2 et 50 caractères",
+     *     minMessage = "La taille du prénom doit être comprise entre 2 et 50 caractères"
      * )
      */
     private $firstname;
@@ -99,6 +103,37 @@ class Article
      * )
      */
     private $email;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fileName;
+
+    /**
+     * @var File|null
+     * @Assert\Image(
+     *     mimeTypes={
+     *     "image/jpeg",
+     *     "image/png",
+     *     "image/gif"
+     *     }
+     * )
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="fileName")
+     */
+    private $imageFile;
+
+    /**
+     * Définis la date de création, la date de modification et le status par défaut
+     * Article constructor.
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        $this->status = 0;
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -210,6 +245,47 @@ class Article
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * @param string|null $fileName
+     * @return Article
+     */
+    public function setFileName(?string $fileName): Article
+    {
+        $this->fileName = $fileName;
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     * @return Article
+     * @throws \Exception
+     */
+    public function setImageFile(?File $imageFile): Article
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile)
+        {
+            $this->updated_at = new \DateTime('now');
+        }
         return $this;
     }
 }

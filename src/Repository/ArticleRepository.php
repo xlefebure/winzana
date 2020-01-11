@@ -14,11 +14,20 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
+    /**
+     * ArticleRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Article::class);
     }
 
+    /**
+     * Retourne les n derniers articles publiés
+     * @param int $number
+     * @return array
+     */
     public function findLastArticles(int $number): array
     {
         return $this->createQueryBuilder('a')

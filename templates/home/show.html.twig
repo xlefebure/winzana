@@ -8,11 +8,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h6>Mis en ligne le {{ article.createdAt | date("m/d/Y") }}</h6>
+                    <h6>Mis en ligne le {{ article.createdAt | date("m/d/Y") }} | Mis à jour le {{ article.updatedAt | date("m/d/Y") }}</h6>
                     <h1>{{ article.title }}</h1>
-                    <h6>par {{ article.name }}</h6>
+                    <h6>par {{ article.firstname }} {{ article.name }} ({{ article.email }})</h6>
+                    <h6>à {{ article.city }}</h6>
 
-                    {{ article.description }}
+                    <hr/>
+
+                    <p>
+                        {% if article.description %}
+                            {{ article.description }}
+                        {% else %}
+                            Aucune description
+                        {% endif %}
+                    </p>
+
+                    <hr/>
+
+                    {% if article.filename %}
+                        <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top" alt="Image">
+                    {% else %}
+                        <img src="http://placehold.it/350x100" class="card-img-top" alt="Image">
+                    {% endif %}
                 </div>
             </div>
         </div>

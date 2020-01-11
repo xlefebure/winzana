@@ -26,6 +26,7 @@
                 {% endfor %}
             </div>
         </div>
+
         <div class="row">
             <div class="col-12">
                 <h2>Derniers articles</h2>
@@ -33,16 +34,23 @@
             {% for article in articles %}
                 <div class="col-4 col-md-4 col-8 mb-2">
                     <div class="card">
-                        <img src="http://placehold.it/350x100" class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <a href="{{ path('home.show', {'id': article.id}) }}">
+                            {% if article.filename %}
+                                <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top" alt="Image">
+                            {% else %}
+                                <img src="http://placehold.it/350x100" class="card-img-top" alt="Image">
+                            {% endif %}
+                        </a>
+                        <div class="card-body text-center">
                             <h5 class="card-title">{{ article.title }}</h5>
-                            <p class="card-text">{{ article.description }}</p>
+                            <p class="card-text">{{ article.description|length > 50 ? article.description|slice(0, 50) ~ '...' : article.description }}</p>
                             <a href="{{ path('home.show', {'id': article.id}) }}" class="btn btn-primary">Lire l'article</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
+
         <div class="row">
             <div class="col-12">
                 <h2>Ajouter un article</h2>
